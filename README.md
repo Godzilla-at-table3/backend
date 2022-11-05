@@ -1,6 +1,6 @@
 # backend
 backend
-# frontend
+
 ## Cooperation Plan
 
 Every person on your team is an asset. This is your chance to discover the hidden strengths and areas for growth for each team member.
