@@ -1,5 +1,13 @@
 # backend
 backend
+## Authors:
+[Kenny Lino](https://github.com/kennywlino)
+
+[Nick Seidel](https://github.com/enviouscodefellow)
+
+[TJ Parker](https://github.com/orgs/Godzilla-at-table3/people/tj-parker)
+
+[Monica Ramirez](https://github.com/mramirez92)
 
 ## Cooperation Plan
 
