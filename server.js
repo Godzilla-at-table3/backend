@@ -39,9 +39,14 @@ class Image{
   }
 }
 
+//
+// app.get('/auth/login', getSpotifyAuth);
+// app.get('/auth/callback', ); 
+
 app.use('*', (req,res) => {
   res.status(404).send('Error 404, information unavailable');
 });
+
 app.use((error, request, response, next) => {
   response.status(500).send(error.message);
 });
