@@ -3,7 +3,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const { default: axios } = require('axios');
+const axios = require('axios');
 // const mongoose = require('mongoose');
 
 // mongoose.connect(process.env.MONGO_DB_URL);
@@ -21,16 +21,13 @@ app.get('/', (request, response)=>{
 app.get('/images', getImages);
 
 async function getImages(request, response, error){
-  try{
-    let imageUrl= `https://api.unsplash.com/photos/random?client_id=${process.env.UNSPLASH_API_KEY}&count=10&orientation=landscape&fit=crop&w=1080&q=80&fit=max`
-    let imageData= await axios.get(imageUrl)
-    
-    let groomedData = imageData.data.results.map(image => new Image(image));
+    let imageUrl= `https://api.unsplash.com/photos/random?client_id=${process.env.UNSPLASH_API_KEY}&count=20&orientation=landscape&fit=crop&w=1080&q=80&fit=max`
+    let imageData= await axios.get(imageUrl);
+    // let groomedData = imageData.data
+    let groomedData = imageData.data.filter((image)=> image.description !== null).map(image => new Image(image));
+    console.log(groomedData);
     response.status(200).send(groomedData);
-  }catch(error){
-    next(error);
-  }
-}
+};
 
 class Image{
   constructor(imageObj){
@@ -43,7 +40,7 @@ class Image{
 }
 
 app.use('*', (req,res) => {
-  res.status(404).send('Information unavailable.');
+  res.status(404).send('Error 404, information unavailable');
 });
 app.use((error, request, response, next) => {
   response.status(500).send(error.message);
