@@ -4,9 +4,11 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const Data = require('./models/dataModel');
+const verifyUser = require('./auth');
 
-// mongoose.connect(process.env.MONGO_DB_URL);
+mongoose.connect(process.env.MONGO_DB_URL);
 
 // ** MIDDLEWARE
 const app = express();
@@ -15,9 +17,18 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 3002;
 
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', async _ => {
+  console.log('We\'re connected!');
+});
+
 app.get('/', (request, response)=>{
   response.send('Welcome to PicMySong Server');
 });
+
+app.use(verifyUser);
+
 app.get('/images', getImages);
 
 async function getImages(request, response, error){
