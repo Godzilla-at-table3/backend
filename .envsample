@@ -1,4 +1,5 @@
-MONGO_DB_URL=mongodb+srv://admin:i2efCVKlvyGt5yc3@cluster0.mvz3rjd.mongodb.net/godzilla?retryWrites=true&w=majority
-UNSPLASH_API_KEY=j
+MONGO_DB_URL=
+UNSPLASH_API_KEY=
 UNSLPASH_SECRET_KEY=
-PORT=http://localhost:3001
+PORT=3001
+JWKS_URI=
