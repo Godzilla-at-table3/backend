@@ -19,8 +19,8 @@ const PORT = process.env.PORT || 3002;
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', async _ => {
-  console.log('We\'re connected!');
+db.once('open', function () {
+  console.log('Mongoose is connected');
 });
 
 app.get('/', (request, response)=>{
