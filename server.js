@@ -19,15 +19,15 @@ const PORT = process.env.PORT || 3002;
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
+db.once('open', async _ => {
   console.log('Mongoose is connected');
 });
+
+app.use(verifyUser);
 
 app.get('/', (request, response)=>{
   response.send('Welcome to PicMySong Server');
 });
-
-app.use(verifyUser);
 
 app.get('/images', getImages);
 
