@@ -5,7 +5,7 @@ const updateMusic = async (request, response, next) => {
   try {
     let id = request.params.id;
     let updatedMusic = await Music.findByIdAndUpdate(id, request.body, {new: true, overwrite: true});
-    response.send(updatedMusic);
+    response.send(...updatedMusic, updatedMusic);
   } catch (error) {
     next (error);
   }

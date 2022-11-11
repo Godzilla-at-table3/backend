@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 let musicSchema = new mongoose.Schema({
   imgURL: {type: String, required: true},
-  timestamp: {type: String, required: true},
+  timestamp: {type: String, required: false},
   selectedSong: {type: String, required: true},
   email: {type: String, required: false},
   comment: {type: String, required: false},
