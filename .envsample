@@ -1,5 +1,6 @@
 MONGO_DB_URL=
 UNSPLASH_API_KEY=
-UNSLPASH_SECRET_KEY=
 PORT=3001
-JWKS_URI=
+SPOTIFY_CLIENT_ID='my_spotify_client_id'
+SPOTIFY_CLIENT_SECRET='my_spotify_client_secret'
+JWKS_URI='your jwks'
