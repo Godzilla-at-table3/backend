@@ -17,6 +17,8 @@ app.use(cors());
 
 mongoose.connect(process.env.MONGO_DB_URL);
 
+let token;
+
 const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -45,7 +47,6 @@ app.put('/music/:id', updateMusic);
 
 app.get('/images', getImages);
 
-
 async function getImages(request, response, error) {
   let imageUrl = `https://api.unsplash.com/photos/random?client_id=${process.env.UNSPLASH_API_KEY}&count=2&orientation=landscape&fit=crop&w=1080&q=80&fit=max`
   let imageData = await axios.get(imageUrl);
@@ -65,6 +66,7 @@ class Image {
     this.user = imageObj.user.name;
     this.userPortfolio = imageObj.user.portfolio_url;
     this.words = []
+
   }
   getWords (){
     let descSplit = this.description.split(' ');
