@@ -29,8 +29,6 @@ db.once('open', function () {
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
-let token;
-
 
 // app.use.apply(verifyUser);
 app.get('/', (request, response) => {
