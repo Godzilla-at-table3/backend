@@ -27,6 +27,8 @@ db.once('open', function () {
 const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
+let token;
+
 
 // app.use.apply(verifyUser);
 app.get('/', (request, response) => {
@@ -78,6 +80,7 @@ class Image {
 
 // ***** SPOTIFY *****
 const SpotifyWebApi = require('spotify-web-api-node');
+const { response } = require('express');
 
 let spotifyApi = new SpotifyWebApi({
   clientId: process.env.SPOTIFY_CLIENT_ID,
@@ -87,7 +90,7 @@ let spotifyApi = new SpotifyWebApi({
 
 app.get('/auth', getSpotifyAuth);
 
-let scopes = ['streaming', 'user-read-email', 'user-read-private'];
+let scopes = ['streaming', 'user-read-email', 'user-read-private', 'user-read-playback-state', 'user-modify-playback-state'];
 let state = generateRandomString(16);
 
 async function getSpotifyAuth(request, response, next) {
@@ -111,16 +114,30 @@ async function getTokens(request, response, next) {
       console.log('The token expires in ' + data.body['expires_in']);
       console.log('The access token is ' + data.body['access_token']);
       console.log('The refresh token is ' + data.body['refresh_token']);
+
+      setToken(data.body['access_token']);
+
+      // token = data.body['access_token'];
   
       // Set the access token on the API object to use it in later calls
       spotifyApi.setAccessToken(data.body['access_token']);
       spotifyApi.setRefreshToken(data.body['refresh_token']);
       response.redirect('/');
+      // response.send({data: data.body['access_token']});
     },
     function(err) {
       console.log('Something went wrong!', err);
     })
 }
+
+function setToken(tok) {
+  token = tok;
+}
+
+app.get('/token', (req, res) => {
+  res.send(token);
+});
+
 
 app.get('/getSpotifySong', getSpotifySong);
 
